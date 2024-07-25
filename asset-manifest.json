@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/kcal-calculator-client/static/css/main.7acaea2f.css",
+    "main.js": "/kcal-calculator-client/static/js/main.0bd0dd28.js",
+    "index.html": "/kcal-calculator-client/index.html",
+    "main.7acaea2f.css.map": "/kcal-calculator-client/static/css/main.7acaea2f.css.map",
+    "main.0bd0dd28.js.map": "/kcal-calculator-client/static/js/main.0bd0dd28.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7acaea2f.css",
+    "static/js/main.0bd0dd28.js"
+  ]
+}
