@@ -1,8 +1,8 @@
-export const InputField = () => {
+export const InputField = ({ change, number }) => {
   return (
     <>
-      <input placeholder="enter food name"/>
-      <input placeholder="enter food weight"/>
+      <input name={`foodName.${number}`} onChange={(e) => change(e)} placeholder="enter food name"/>
+      <input name={`foodWeight.${number}`} onChange={(e) => change(e)} placeholder="enter food weight"/>
     </>
   );
 };
