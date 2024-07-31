@@ -1,29 +1,47 @@
 import { InputField } from 'components/inputField/InputField';
 import { useState, useCallback } from 'react';
+import css from './Druft.module.css';
 import debounce from 'lodash/debounce';
 import axios from 'axios';
 
 axios.defaults.baseURL = 'https://kcal-calculator.onrender.com';
 
 export const Druft = () => {
+  const [fields, setFields] = useState([
+    {
+      number: 1,
+      foodName: '',
+      foodWeight: '',
+      data: null,
+      className: 'field-area',
+    },
+  ]);
 
-  const [fields, setFields] = useState([{ number: 1, foodName: '', foodWeight: '', data: null }]);
+  const [totalWeight, setTotalWeight] = useState(0);
 
   const addField = () => {
     setFields(prevState => [
       ...prevState,
-      { number: prevState.length + 1, foodName: '', foodWeight: '', data: null }
+      {
+        number: prevState.length + 1,
+        foodName: '',
+        foodWeight: '',
+        data: null,
+        className: 'field-area',
+      },
     ]);
   };
 
-  const debouncedChangeField = debounce(async (event) => {
+  const debouncedChangeField = debounce(async event => {
     const { value, name } = event.target;
     const [targetName, targetNumber] = name.split('.');
 
     setFields(prevState => {
       const newFields = [...prevState];
-      const targetField = newFields.find(f => f.number === Number(targetNumber));
-      
+      const targetField = newFields.find(
+        f => f.number === Number(targetNumber)
+      );
+
       if (targetField) {
         if (targetName === 'foodName') {
           targetField.foodName = value;
@@ -31,18 +49,23 @@ export const Druft = () => {
           targetField.foodWeight = value;
         }
       }
-      
+
       return newFields;
     });
 
     if (targetName === 'foodName' && value !== '') {
       try {
-        const response = await axios.post('/api/ingredients/food', { item: value });
+        const response = await axios.post('/api/ingredients/food', {
+          item: value,
+        });
         setFields(prevState => {
           const newFields = [...prevState];
-          const targetField = newFields.find(f => f.number === Number(targetNumber));
+          const targetField = newFields.find(
+            f => f.number === Number(targetNumber)
+          );
           if (targetField) {
             targetField.data = response.data;
+            targetField.className = 'green-field-area';
           }
           return newFields;
         });
@@ -52,15 +75,19 @@ export const Druft = () => {
     }
   }, 2000);
 
-  const changeField = useCallback((event) => {
-    event.persist();
-    debouncedChangeField(event);
-  }, [debouncedChangeField]);
+  const changeField = useCallback(
+    event => {
+      event.persist();
+      debouncedChangeField(event);
+    },
+    [debouncedChangeField]
+  );
 
   const totalCalories = () => {
     return fields.reduce((total, field) => {
       if (field.data && field.foodWeight) {
-        const portion = Number(field.data.calories) * (Number(field.foodWeight) / 100);
+        const portion =
+          Number(field.data.calories) * (Number(field.foodWeight) / 100);
         return total + portion;
       }
       return total;
@@ -72,14 +99,21 @@ export const Druft = () => {
       <h2>My druft</h2>
       <ul>
         {fields.map(n => (
-          <li key={n.number}>
+          <li
+            key={n.number}
+            className={
+              n.className === 'field-area' ? css.fieldArea : css.greenFieldArea
+            }
+          >
             <InputField change={changeField} number={n.number} />
           </li>
         ))}
       </ul>
       <button onClick={addField}>+</button>
+      <p>Total weight</p>
+      <input onChange={e => setTotalWeight(Number(e.target.value))}></input>
       <p>This is your result:</p>
-      <p>Total colories: {totalCalories()}</p>
+      <p>Total colories: {totalWeight === 0 ? 0 : Math.round(totalCalories() / totalWeight * 100)}kcal / 100g</p>
     </div>
   );
 };
