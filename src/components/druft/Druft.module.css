@@ -1,7 +1,41 @@
+.container {
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.title {
+    text-align: center;
+    font-weight: 500;
+}
+
+.fieldsList {
+    list-style: none;
+    padding: 0;
+}
+
 .fieldArea {
-    border: 1px solid #575757
+    border: 2px solid #a34b4b;
+    border-radius: 35px;
+    padding: 5px;
 }
 
 .greenFieldArea {
-    border: 1px solid #76b974
+    border: 2px solid #76b974
+}
+
+.fieldArea:nth-child(n + 2) {
+    margin-top: 10px;
+}
+
+.addFieldBtn {
+    min-width: 25%;
+    padding: 5px;
+    border: none;
+    border-radius: 25px;
+    background-color: #76b974;
+}
+
+.weightField {
+    margin-top: 10px;
 }

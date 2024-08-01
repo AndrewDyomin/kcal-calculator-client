@@ -95,23 +95,26 @@ export const Druft = () => {
   };
 
   return (
-    <div className="container">
-      <h2>My druft</h2>
-      <ul>
+    <div className={css.container}>
+      <h2 className={css.title}>My druft</h2>
+      <ul className={css.fieldsList}>
         {fields.map(n => (
           <li
             key={n.number}
             className={
-              n.className === 'field-area' ? css.fieldArea : css.greenFieldArea
+              n.className === 'field-area' ? css.fieldArea : `${css.fieldArea} ${css.greenFieldArea}`
             }
           >
             <InputField change={changeField} number={n.number} />
           </li>
         ))}
       </ul>
-      <button onClick={addField}>+</button>
-      <p>Total weight</p>
-      <input onChange={e => setTotalWeight(Number(e.target.value))}></input>
+      <button className={css.addFieldBtn} onClick={addField}>+</button>
+      <div className={css.weightField}>
+        <label>Total weight
+          <input onChange={e => setTotalWeight(Number(e.target.value))}></input>
+        </label>
+      </div>
       <p>This is your result:</p>
       <p>Total colories: {totalWeight === 0 ? 0 : Math.round(totalCalories() / totalWeight * 100)}kcal / 100g</p>
     </div>
