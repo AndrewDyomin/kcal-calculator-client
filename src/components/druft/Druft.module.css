@@ -15,7 +15,7 @@
 }
 
 .fieldArea {
-    border: 2px solid #a34b4b;
+    border: 2px solid #575656;
     border-radius: 35px;
     padding: 5px;
 }
@@ -34,8 +34,15 @@
     border: none;
     border-radius: 25px;
     background-color: #76b974;
+    color: #000;
+    font-size: 20px;
+}
+
+.weightFieldArea {
+    margin-top: 10px;
 }
 
 .weightField {
-    margin-top: 10px;
+    margin-left: 20px;
+    width: 100px;
 }

@@ -110,9 +110,9 @@ export const Druft = () => {
         ))}
       </ul>
       <button className={css.addFieldBtn} onClick={addField}>+</button>
-      <div className={css.weightField}>
+      <div className={css.weightFieldArea}>
         <label>Total weight
-          <input onChange={e => setTotalWeight(Number(e.target.value))}></input>
+          <input className={`${css.weightField} ${css.fieldArea}`} onChange={e => setTotalWeight(Number(e.target.value))}></input>
         </label>
       </div>
       <p>This is your result:</p>
