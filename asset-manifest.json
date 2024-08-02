@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/kcal-calculator-client/static/css/main.bb297fc3.css",
-    "main.js": "/kcal-calculator-client/static/js/main.8d1c7916.js",
+    "main.css": "/kcal-calculator-client/static/css/main.edb91ba2.css",
+    "main.js": "/kcal-calculator-client/static/js/main.68bd02be.js",
     "index.html": "/kcal-calculator-client/index.html",
-    "main.bb297fc3.css.map": "/kcal-calculator-client/static/css/main.bb297fc3.css.map",
-    "main.8d1c7916.js.map": "/kcal-calculator-client/static/js/main.8d1c7916.js.map"
+    "main.edb91ba2.css.map": "/kcal-calculator-client/static/css/main.edb91ba2.css.map",
+    "main.68bd02be.js.map": "/kcal-calculator-client/static/js/main.68bd02be.js.map"
   },
   "entrypoints": [
-    "static/css/main.bb297fc3.css",
-    "static/js/main.8d1c7916.js"
+    "static/css/main.edb91ba2.css",
+    "static/js/main.68bd02be.js"
   ]
 }
