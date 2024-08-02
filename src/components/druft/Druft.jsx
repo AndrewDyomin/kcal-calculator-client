@@ -13,7 +13,7 @@ export const Druft = () => {
       foodName: '',
       foodWeight: '',
       data: null,
-      className: 'field-area',
+      className: css.fieldArea,
     },
   ]);
 
@@ -27,7 +27,7 @@ export const Druft = () => {
         foodName: '',
         foodWeight: '',
         data: null,
-        className: 'field-area',
+        className: css.fieldArea,
       },
     ]);
   };
@@ -65,12 +65,22 @@ export const Druft = () => {
           );
           if (targetField) {
             targetField.data = response.data;
-            targetField.className = 'green-field-area';
+            targetField.className = `${css.fieldArea} ${css.greenFieldArea}`;
           }
           return newFields;
         });
       } catch (error) {
         console.error('Error fetching food data:', error);
+        setFields(prevState => {
+          const newFields = [...prevState];
+          const targetField = newFields.find(
+            f => f.number === Number(targetNumber)
+          );
+          if (targetField) {
+            targetField.className = `${css.fieldArea} ${css.redFieldArea}`;
+          }
+          return newFields;
+        });
       }
     }
   }, 2000);
@@ -94,6 +104,39 @@ export const Druft = () => {
     }, 0);
   };
 
+  const totalProtein = () => {
+    return fields.reduce((total, field) => {
+      if (field.data && field.foodWeight) {
+        const portion =
+          Number(field.data.protein) * (Number(field.foodWeight) / 100);
+        return total + portion;
+      }
+      return total;
+    }, 0);
+  };
+
+  const totalFat = () => {
+    return fields.reduce((total, field) => {
+      if (field.data && field.foodWeight) {
+        const portion =
+          Number(field.data.fat) * (Number(field.foodWeight) / 100);
+        return total + portion;
+      }
+      return total;
+    }, 0);
+  };
+
+  const totalCarbohydrate = () => {
+    return fields.reduce((total, field) => {
+      if (field.data && field.foodWeight) {
+        const portion =
+          Number(field.data.carbohydrate) * (Number(field.foodWeight) / 100);
+        return total + portion;
+      }
+      return total;
+    }, 0);
+  };
+
   return (
     <div className={css.container}>
       <h2 className={css.title}>My druft</h2>
@@ -101,9 +144,7 @@ export const Druft = () => {
         {fields.map(n => (
           <li
             key={n.number}
-            className={
-              n.className === 'field-area' ? css.fieldArea : `${css.fieldArea} ${css.greenFieldArea}`
-            }
+            className={n.className}
           >
             <InputField change={changeField} number={n.number} />
           </li>
@@ -116,7 +157,10 @@ export const Druft = () => {
         </label>
       </div>
       <p>This is your result:</p>
-      <p>Total colories: {totalWeight === 0 ? 0 : Math.round(totalCalories() / totalWeight * 100)}kcal / 100g</p>
+      <p>Calories: {totalWeight === 0 ? 0 : Math.round(totalCalories() / totalWeight * 100)}kcal / 100g</p>
+      <p>Protein: {totalWeight === 0 ? 0 : Math.round(totalProtein() / totalWeight * 100)} / 100g</p>
+      <p>Fat: {totalWeight === 0 ? 0 : Math.round(totalFat() / totalWeight * 100)} / 100g</p>
+      <p>Carbohydrates: {totalWeight === 0 ? 0 : Math.round(totalCarbohydrate() / totalWeight * 100)} / 100g</p>
     </div>
   );
 };
